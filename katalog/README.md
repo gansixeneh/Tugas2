@@ -4,7 +4,7 @@ http://tugas2-gansixeneh-2106629963.herokuapp.com/katalog/
 
 # Penjelasan Request Client
 
-![Bagan MVT](https://drive.google.com/file/d/1P39K85siMCp_wO9gY-2Toql1UXIH4kCD/view?usp=sharing)
+![Bagan MVT](image.jpeg)
 
 Ketika client melakukan request, ``urls.py`` akan memanggil ``views.py`` yang sesuai dengan permintaan user. Jika memerlukan data yang ada pada database, ``views.py`` akan memanggil ``models.py`` untuk memberikan data yang sesuai. Ketika data sudah diperoleh, ``views.py`` akan memberikan berkas ``html`` kepada user yang sudah berisi data-data yang diperlukan.
 
