@@ -1,0 +1,117 @@
+[
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":1,
+        "fields":{
+            "watched":"True",
+            "title":"Cars 2",
+            "rating": "5",
+            "release_date":"2011-10-12",
+            "review": "The movie was wonderful."
+        }
+    },
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":2,
+        "fields":{
+            "watched":"True",
+            "title":"Big Hero 6",
+            "rating": "4",
+            "release_date":"2022-03-30",
+            "review": "Indeed, a very good movie."
+        }
+    },
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":3,
+        "fields":{
+            "watched":"True",
+            "title":"Kung Fu Panda 2",
+            "rating": "5",
+            "release_date":"2001-07-07",
+            "review": "The character development of Po is very amazing."
+        }
+    },
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":4,
+        "fields":{
+            "watched":"False",
+            "title":"Morbius",
+            "rating": "3",
+            "release_date":"2025-05-30",
+            "review": "It's Morbin' time. Truly one of the movies of all time."
+        }
+    },
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":5,
+        "fields":{
+            "watched":"True",
+            "title":"The Lego Movie",
+            "rating": "5",
+            "release_date":"2014-11-25",
+            "review": "The connection between the real world and the Lego world was very interesting."
+        }
+    },
+
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":6,
+        "fields":{
+            "watched":"False",
+            "title":"The Dark Knight",
+            "rating": "5",
+            "release_date":"2007-09-12",
+            "review": "An incredible plot twist. Truly amazing."
+        }
+    },
+
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":7,
+        "fields":{
+            "watched":"False",
+            "title":"The Matrix",
+            "rating": "5",
+            "release_date":"1999-09-19",
+            "review": "The action was very good."
+        }
+    },
+
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":8,
+        "fields":{
+            "watched":"True",
+            "title":"Doctor Strange",
+            "rating": "4",
+            "release_date":"2016-05-21",
+            "review": "It was very interesting to see the other side of MCU."
+        }
+    },
+
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":9,
+        "fields":{
+            "watched":"True",
+            "title":"Avengers: Endgame",
+            "rating": "5",
+            "release_date":"2018-05-17",
+            "review": "It was fun seeing all the heroes fight together. Very awesome."
+        }
+    },
+
+    {
+        "model":"mywatchlist.mywatchlist",
+        "pk":10,
+        "fields":{
+            "watched":"True",
+            "title":"Boruto: Naruto The Movie",
+            "rating": "4",
+            "release_date":"2017-07-12",
+            "review": "The characters that were introduced are very amazing."
+        }
+    }
+]

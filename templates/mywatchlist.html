@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table>
+    <tr>
+    <th>Watched</th>
+    <th>Title</th>
+    <th>Rating</th>
+    <th>Release Date</th>
+    <th>Review</th>
+    </tr>
+    {% for movies in list_mywatchlist %}
+        <tr>
+            <th>{{movies.watched}}</th>
+            <th>{{movies.title}}</th>
+            <th>{{movies.rating}}</th>
+            <th>{{movies.release_date}}</th>
+            <th>{{movies.review}}</th>
+        </tr>
+    {% endfor %}
+</table>
+
+<p>{{ final_message }}</p>
+
+{% endblock content %}
