@@ -1,7 +1,7 @@
 # Link Heroku App
 
-http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/html/
-http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/xml/
+http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/html/ \
+http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/xml/ \
 http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/json/
 
 # Perbedaan JSON, XML, dan HTML
