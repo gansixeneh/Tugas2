@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
+
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+<table>
+    <tr>
+    <th>Tanggal Pembuatan Task</th>
+    <th>Judul Task</th>
+    <th>Deskripsi Task</th>
+    </tr>
+    {% for todo in list_todolist %}
+        <tr>
+            <th>{{todo.date}}</th>
+            <th>{{todo.title}}</th>
+            <th>{{todo.description}}</th>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
