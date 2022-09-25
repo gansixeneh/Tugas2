@@ -60,5 +60,6 @@ def create_task_user(request):
         task_baru.title = request.POST.get('title')
         task_baru.description = request.POST.get('description')
         task_baru.save()
+        return redirect('todolist:show_todolist')
     context = {}
     return render(request, 'create-task.html', context)
