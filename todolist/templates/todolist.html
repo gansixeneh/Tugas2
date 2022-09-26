@@ -7,7 +7,6 @@
 {% block content %}
 
 <button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
-
 <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 
 <p>Welcome, {{ name }}!</p>
@@ -17,12 +16,18 @@
     <th>Tanggal Pembuatan Task</th>
     <th>Judul Task</th>
     <th>Deskripsi Task</th>
+    <th>Status Penyelesaian Task</th>
+    <th>Ubah Status Task</th>
+    <th>Hapus Task</th>
     </tr>
     {% for todo in list_todolist %}
         <tr>
-            <th>{{todo.date}}</th>
-            <th>{{todo.title}}</th>
-            <th>{{todo.description}}</th>
+            <th>{{todo.0.date}}</th>
+            <th>{{todo.0.title}}</th>
+            <th>{{todo.0.description}}</th>
+            <th>{{todo.1}}</th>
+            <th><button><a href="{% url 'todolist:create-task' %}">Ubah Status</a></button></th>
+            <th><button><a href="{% url 'todolist:create-task' %}">Hapus</a></button></th>
         </tr>
     {% endfor %}
 </table>

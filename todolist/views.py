@@ -12,9 +12,18 @@ def show_todolist(request):
     username = request.user
     data_todolist = Task.objects.filter(user=request.user)
 
+    dict_selesai = {
+        True: 'Selesai',
+        False: 'Belum Selesai',
+    }
+
+    todolist = list(data_todolist)
+    for i in range(len(todolist)):
+        todolist[i] = (todolist[i], dict_selesai[todolist[i].is_finished])
+
     context = {
         'name': username,
-        'list_todolist': data_todolist,
+        'list_todolist': todolist,
     }
     return render(request, "todolist.html", context)
 
