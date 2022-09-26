@@ -4,11 +4,11 @@ http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/todolist/
 
 # Kegunaan {% csrf_token %} Pada Elemen \<form\>
 
-Apabila tidak ada csrf_token pada elemen form, website-website yang tidak bertanggung jawab dapat memanfaatkan data-data yang dimiliki oleh seorang user yang sedang menggunakan website kita untuk melakukan pengisian form pada website kita dengan mengatasnamakan user tersebut. Dengan adanya ``csrf_token``, django akan memastikan bahwa orang yang sedang mengisi form kita benar-benar user tersebut, bukan orang/pihak lain.
+Apabila tidak ada csrf_token pada elemen form, website-website yang tidak bertanggung jawab dapat memanfaatkan data-data yang dimiliki oleh seorang user yang sedang menggunakan website kita untuk melakukan pengisian form pada website kita dengan mengatasnamakan user tersebut. Dengan adanya ``csrf_token``, Django akan memastikan bahwa orang yang sedang mengisi form kita benar-benar user tersebut, bukan orang/pihak lain.
 
 # Membuat \<form\> secara manual
 
-Ya, kita dapat membuat form sendiri secara manual tanpa generator. Tetapi, apabila data yang ingin kita minta ke user sudah disediakan oleh class yang ada di ``django``, kita dapat menggunakan class tersebut, misalnya ``UserCreationForm()``.
+Ya, kita dapat membuat form sendiri secara manual tanpa generator. Tetapi, apabila data yang ingin kita minta ke user sudah disediakan oleh class yang ada di Django, kita dapat menggunakan class tersebut, misalnya ``UserCreationForm()``.
 
 Untuk membuat form kita sendiri, kita perlu membuat class baru di ``models.py``. Setelah itu, kita perlu menyediakan variabel-variabel untuk menyimpan data yang diberikan di form. Lalu, pada ``views.py``, kita dapat membuat instance dari class tersebut, serta meminta data-data yang kita perlukan dengan melakukan ``request.POST.get(nama_data)`` dan menyimpannya pada variabel-variabel tersebut, lalu melakukan ``save()``. 
 
@@ -30,7 +30,7 @@ Apabila kita ingin menampilkan data yang sudah disimpan tadi, kita dapat mengaks
 
 Pertama-tama, kita perlu membuat app ``todolist`` dan mendaftarkannya di ``settings.py``. Setelah itu, kita perlu mengubah ``urls.py`` yang ada di ``project_django`` dan ``todolist`` agar dapat mengakses ``http://localhost:8000/todolist``. Kita juga perlu membuat class baru di ``models.py`` yang ada di app ``todolist`` yang bernama ``Task`` yang berisi atribut ``user``, ``date``, ``title``, dan ``description``. Setiap atribut memiliki jenis field masing-masing, dan untuk atribut ``user`` menggunakan ``models.ForeignKey``.
 
-Untuk membuat form registrasi, kita akan menggunakan model ``UserCreationForm()`` yang sudah disediakan oleh django dan menyimpan form tersebut dalam context untuk ditampilkan pada ``register.html`` dengan cara menuliskan ``{{ form.as_table }}`` pada HTML tersebut dalam bentuk tabel. Agar user bisa melakukan submit, kita perlu membuat tombol submit dengan menuliskan:
+Untuk membuat form registrasi, kita akan menggunakan model ``UserCreationForm()`` yang sudah disediakan oleh Django dan menyimpan form tersebut dalam context untuk ditampilkan pada ``register.html`` dengan cara menuliskan ``{{ form.as_table }}`` pada HTML tersebut dalam bentuk tabel. Agar user bisa melakukan submit, kita perlu membuat tombol submit dengan menuliskan:
 ```HTML
 <input type="submit" name="submit" value="Daftar"/>
 ```
