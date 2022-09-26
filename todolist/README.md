@@ -36,7 +36,7 @@ Untuk membuat form registrasi, kita akan menggunakan model ``UserCreationForm()`
 ```
 Apabila registrasi berhasil, kita akan mengirim message ``"Akun telah berhasil dibuat!"``.
 
-Untuk form login, sebenarnya mirip dengan form register, tetapi kita membuat form kita sendiri secara manual. Kita akan meminta username dan password user dengan ``request.POST.get('username')`` dan ``request.POST.get('password')``. Setelah menerima username dan password, kita akan menggunakan fungsi ``authenticate()`` untuk memastikan apakah data yang diberikan valid. Jika data valid, maka user akan login dan kita akan mengarahkan user ke path ``/todolist/`` dengan me-return response ``redirect('todolist:show_todolist')``.
+Untuk form login, sebenarnya mirip dengan form register, tetapi kita membuat form kita sendiri secara manual. Kita akan meminta username dan password user dengan ``request.POST.get('username')`` dan ``request.POST.get('password')``. Setelah menerima username dan password, kita akan menggunakan fungsi ``authenticate()`` untuk memastikan apakah data yang diberikan valid. Jika data valid, maka user akan login dan kita akan mengarahkan user ke path ``/todolist/`` dengan me-return response ``redirect('todolist:show_todolist')``. Sedangkan jika data salah, kita akan mengirim message untuk memberi tahu user.
 
 Untuk form logout, kita hanya perlu memanggil fungsi ``logout()``, mengembalikan user halaman login, dan membersihkan cookie.
 
