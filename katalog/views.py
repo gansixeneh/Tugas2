@@ -7,4 +7,4 @@ def show_katalog(request):
         'list_barang': data_barang_katalog,
         'nama': 'Muflih Naufal Maxi'
     }
-    return render(request, "base.html", context)
+    return render(request, "katalog.html", context)
