@@ -28,12 +28,25 @@ Apabila kita ingin menampilkan data yang sudah disimpan tadi, kita dapat mengaks
 
 # Implementasi Checklist
 
-Agar user dapat membuat task baru, kita akan menyediakan form ``create-task.html`` yang berisi tabel untuk menuliskan ``title`` dan ``description`` untuk task tersebut menggunakan tag input. Kita juga menyediakan tombol submit agar user dapat melakukan submit. Form tersebut dapat diakses menggunakan button yang tersedia di ``todolist.html``, yaitu:
+Pertama-tama, kita perlu membuat app ``todolist`` dan mendaftarkannya di ``settings.py``. Setelah itu, kita perlu mengubah ``urls.py`` yang ada di ``project_django`` dan ``todolist`` agar dapat mengakses ``http://localhost:8000/todolist``. Kita juga perlu membuat class baru di ``models.py`` yang ada di app ``todolist`` yang bernama ``Task`` yang berisi atribut ``user``, ``date``, ``title``, dan ``description``. Setiap atribut memiliki jenis field masing-masing, dan untuk atribut ``user`` menggunakan ``models.ForeignKey``.
+
+Untuk membuat form registrasi, kita akan menggunakan model ``UserCreationForm()`` yang sudah disediakan oleh django dan menyimpan form tersebut dalam context untuk ditampilkan pada ``register.html`` dengan cara menuliskan ``{{ form.as_table }}`` pada HTML tersebut dalam bentuk tabel. Agar user bisa melakukan submit, kita perlu membuat tombol submit dengan menuliskan:
+```HTML
+<input type="submit" name="submit" value="Daftar"/>
+```
+Apabila registrasi berhasil, kita akan mengirim message ``"Akun telah berhasil dibuat!"``.
+
+Untuk form login, sebenarnya mirip dengan form register, tetapi kita membuat form kita sendiri secara manual. Kita akan meminta username dan password user dengan ``request.POST.get('username')`` dan ``request.POST.get('password')``. Setelah menerima username dan password, kita akan menggunakan fungsi ``authenticate()`` untuk memastikan apakah data yang diberikan valid. Jika data valid, maka user akan login dan kita akan mengarahkan user ke path ``/todolist/`` dengan me-return response ``redirect('todolist:show_todolist')``.
+
+Untuk form logout, kita hanya perlu memanggil fungsi ``logout()``, mengembalikan user halaman login, dan membersihkan cookie.
+
+Pada halaman utama ``todolist``, kita dapat mengatur ``views.py`` untuk mengambil username dan daftar-daftar task yang ada. Data username diperoleh dari ``request.user``, sedangkan task diperoleh dari ``Task.objects.filter(user=request.user)`` agar seorang user tidak dapat melihat task user lain. Kita juga perlu membuat link yang menuju ke link logout dan link form untuk menambah task baru, yaitu dengan menggunakan:
 
 ```HTML
 <button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
+<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 ```
 
-Ketika user mengakses ``todolist/create-task``, maka ``views.py`` akan menampilkan HTML tersebut dan menyimpan data yang diberikan oleh user dengan melakukan ``request.POST.get('title')`` dan ``request.POST.get('description')``. Selain dari ``title`` dan ``description`` yang diberikan user, setiap task baru juga menyimpan ``user`` dan ``date``, tetapi kedua variabel ini diatur oleh ``views.py``, bukan user. Setelah semua data telah diperoleh, barulah kita dapat melakukan ``save()``.
+Agar user dapat membuat task baru, kita akan menyediakan form ``create-task.html`` yang berisi tabel untuk menuliskan ``title`` dan ``description`` untuk task tersebut menggunakan tag input. Kita juga menyediakan tombol submit agar user dapat melakukan submit. 
 
-Untuk menampilkan kembali task-task yang sudah disimpan, kita dapat mengakses data-data tersebut menggunakan ``Task.objects.filter(user=request.user)``. Di sini, kita menggunakan method ``filter()``, bukan ``all()``, karena seorang user tidak boleh melihat task-task yang dimiliki user lain. Lalu, kita akan menampilkan data-data tersebut melalui ``todolist.html``.
+Ketika user mengakses ``todolist/create-task``, maka ``views.py`` akan menampilkan HTML tersebut dan menyimpan data yang diberikan oleh user dengan melakukan ``request.POST.get('title')`` dan ``request.POST.get('description')``. Selain dari ``title`` dan ``description`` yang diberikan user, setiap task baru juga menyimpan ``user`` dan ``date``, tetapi kedua variabel ini diatur oleh ``views.py``, bukan user. Setelah semua data telah diperoleh, barulah kita dapat melakukan ``save()``. Setelah itu, data akan tersimpan di dalam database.

@@ -10,9 +10,11 @@ from todolist.models import Task
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
+    username = request.user
     data_todolist = Task.objects.filter(user=request.user)
 
     context = {
+        'name': username,
         'list_todolist': data_todolist,
     }
     return render(request, "todolist.html", context)
@@ -37,9 +39,9 @@ def login_user(request):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user) # melakukan login terlebih dahulu
-            response = HttpResponseRedirect(reverse("todolist:show_todolist")) # membuat response
-            response.set_cookie('last_login', str(datetime.datetime.now())) # membuat cookie last_login dan menambahkannya ke dalam response
+            login(request, user)
+            response = redirect('todolist:show_todolist')
+            response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
             messages.info(request, 'Username atau Password salah!')
@@ -48,7 +50,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    response = HttpResponseRedirect(reverse('todolist:login'))
+    response = redirect('todolist:login')
     response.delete_cookie('last_login')
     return response
 
@@ -60,6 +62,7 @@ def create_task_user(request):
         task_baru.title = request.POST.get('title')
         task_baru.description = request.POST.get('description')
         task_baru.save()
+        messages.success(request, 'Task baru telah berhasil ditambah!')
         return redirect('todolist:show_todolist')
     context = {}
     return render(request, 'create-task.html', context)

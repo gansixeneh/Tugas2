@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
+{% block meta %}
+<title>Daftar Task</title>
+{% endblock meta %}
+
 {% block content %}
 
 <button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
 
 <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+
+<p>Welcome, {{ name }}!</p>
 
 <table>
     <tr>
@@ -20,5 +26,13 @@
         </tr>
     {% endfor %}
 </table>
+
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 {% endblock content %}
