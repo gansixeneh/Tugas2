@@ -22,12 +22,12 @@
     </tr>
     {% for todo in list_todolist %}
         <tr>
-            <th>{{todo.date}}</th>
-            <th>{{todo.title}}</th>
-            <th>{{todo.description}}</th>
-            <th>{{todo.is_finished}}</th>
-            <th><button><a href="update-task/{{todo.id}}">Ubah Status</a></button></th>
-            <th><button><a href="delete-task/{{todo.id}}">Hapus</a></button></th>
+            <td>{{todo.date}}</td>
+            <td>{{todo.title}}</td>
+            <td>{{todo.description}}</td>
+            <td>{{todo.is_finished}}</td>
+            <td><button><a href="update-task/{{todo.id}}">Ubah Status</a></button></td>
+            <td><button><a href="delete-task/{{todo.id}}">Hapus</a></button></td>
         </tr>
     {% endfor %}
 </table>
