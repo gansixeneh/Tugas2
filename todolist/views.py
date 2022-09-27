@@ -79,9 +79,11 @@ def update_task(request, id):
     task = Task.objects.get(id=id)
     task.is_finished ^= True
     task.save()
+    messages.success(request, 'Status task telah berhasil diubah!')
     return redirect('todolist:show_todolist')
 
 def delete_task(request, id):
     task = Task.objects.get(id=id)
     task.delete()
+    messages.success(request, 'Task telah berhasil dihapus!')
     return redirect('todolist:show_todolist')

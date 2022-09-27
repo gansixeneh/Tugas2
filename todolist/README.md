@@ -36,9 +36,21 @@ Untuk membuat form registrasi, kita akan menggunakan model ``UserCreationForm()`
 ```
 Apabila registrasi berhasil, kita akan mengirim message ``"Akun telah berhasil dibuat!"``.
 
-Untuk form login, sebenarnya mirip dengan form register, tetapi kita membuat form kita sendiri secara manual. Kita akan meminta username dan password user dengan ``request.POST.get('username')`` dan ``request.POST.get('password')``. Setelah menerima username dan password, kita akan menggunakan fungsi ``authenticate()`` untuk memastikan apakah data yang diberikan valid. Jika data valid, maka user akan login dan kita akan mengarahkan user ke path ``/todolist/`` dengan me-return response ``redirect('todolist:show_todolist')``. Sedangkan jika data salah, kita akan mengirim message untuk memberi tahu user.
+Cara mengirimkan message tersebut adalah dengan menggunakan ``messages.success(request, 'Akun telah berhasil dibuat!')`` dan menuliskan kode berikut pada HTML yang kita gunakan:
+```HTML
+{% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+```
+Kode ini juga akan kita sertakan pada setiap HTML yang akan kita gunakan untuk menampilkan beragam message yang dapat muncul.
 
-Untuk form logout, kita hanya perlu memanggil fungsi ``logout()``, mengembalikan user halaman login, dan membersihkan cookie.
+Untuk form login, sebenarnya mirip dengan form register, tetapi kita membuat form kita sendiri secara manual. Kita akan meminta username dan password user dengan ``request.POST.get('username')`` dan ``request.POST.get('password')``. Setelah menerima username dan password, kita akan menggunakan fungsi ``authenticate()`` untuk memastikan apakah data yang diberikan valid. Jika data valid, maka user akan login dan kita akan mengarahkan user ke path ``/todolist/`` dengan me-return response ``redirect('todolist:show_todolist')``. Sedangkan jika data salah, kita akan mengirim message untuk memberi tahu user, yaitu dengan ``messages.info(request, 'Username atau Password salah!')``.
+
+Untuk form logout, kita hanya perlu memanggil fungsi ``logout()``, mengembalikan user ke halaman login, dan membersihkan cookie.
 
 Pada halaman utama ``todolist``, kita dapat mengatur ``views.py`` untuk mengambil username dan daftar-daftar task yang ada. Data username diperoleh dari ``request.user``, sedangkan task diperoleh dari ``Task.objects.filter(user=request.user)`` agar seorang user tidak dapat melihat task user lain. Kita juga perlu membuat link yang menuju ke link logout dan link form untuk menambah task baru, yaitu dengan menggunakan:
 
