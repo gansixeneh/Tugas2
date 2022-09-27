@@ -19,7 +19,7 @@ def show_todolist(request):
 
     todolist = list(data_todolist)
     for i in range(len(todolist)):
-        todolist[i] = (todolist[i], dict_selesai[todolist[i].is_finished])
+        todolist[i].is_finished = dict_selesai[todolist[i].is_finished]
 
     context = {
         'name': username,
