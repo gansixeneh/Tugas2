@@ -26,8 +26,8 @@
             <th>{{todo.0.title}}</th>
             <th>{{todo.0.description}}</th>
             <th>{{todo.1}}</th>
-            <th><button><a href="{% url 'todolist:create-task' %}">Ubah Status</a></button></th>
-            <th><button><a href="{% url 'todolist:create-task' %}">Hapus</a></button></th>
+            <th><button><a href="update-task/{{todo.0.id}}">Ubah Status</a></button></th>
+            <th><button><a href="delete-task/{{todo.0.id}}">Hapus</a></button></th>
         </tr>
     {% endfor %}
 </table>

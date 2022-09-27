@@ -62,7 +62,7 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
-def create_task_user(request):
+def create_task(request):
     if request.method == 'POST':
         task_baru = Task()
         task_baru.user = request.user
@@ -74,3 +74,14 @@ def create_task_user(request):
         return redirect('todolist:show_todolist')
     context = {}
     return render(request, 'create-task.html', context)
+
+def update_task(request, id):
+    task = Task.objects.get(id=id)
+    task.is_finished ^= True
+    task.save()
+    return redirect('todolist:show_todolist')
+
+def delete_task(request, id):
+    task = Task.objects.get(id=id)
+    task.delete()
+    return redirect('todolist:show_todolist')
