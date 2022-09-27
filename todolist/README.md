@@ -12,13 +12,13 @@ Ya, kita dapat membuat form sendiri secara manual tanpa generator. Tetapi, apabi
 
 Untuk membuat form kita sendiri, kita perlu membuat class baru di ``models.py``. Setelah itu, kita perlu menyediakan variabel-variabel untuk menyimpan data yang diberikan di form. Lalu, pada ``views.py``, kita dapat membuat instance dari class tersebut, serta meminta data-data yang kita perlukan dengan melakukan ``request.POST.get(nama_data)`` dan menyimpannya pada variabel-variabel tersebut, lalu melakukan ``save()``. 
 
-Untuk menampilkan ``request.POST`` yang telah kita buat di ``views.py`` pada HTML, kita hanya perlu menambahkan tulisan berikut pada HTML yang akan kita tampilkan:
+Untuk menampilkan ``request.POST`` yang telah kita buat di ``views.py`` pada HTML, kita hanya perlu menambahkan kode berikut pada HTML yang akan kita tampilkan:
 
 ```HTML
 <input type="text" name="nama_data" class="form-control">
 ```
 
-Kita juga dapat mengganti value attribute ``type`` menjadi ``"password"`` ketika user menulis di form tersebut, teks yang ditulis tidak akan ditampilkan.
+Kita juga dapat mengganti value attribute ``type`` menjadi ``"password"`` ketika user menulis di form tersebut agar teks yang ditulis tidak akan ditampilkan.
 
 # Proses Alur Data
 
@@ -34,7 +34,7 @@ Untuk membuat form registrasi, kita akan menggunakan model ``UserCreationForm()`
 ```HTML
 <input type="submit" name="submit" value="Daftar"/>
 ```
-Apabila registrasi berhasil, kita akan mengirim message ``"Akun telah berhasil dibuat!"``.
+Apabila registrasi berhasil, kita akan menyimpan data yang sudah dikirim user dengan melakukan ``form.save()`` dan mengirim message ``"Akun telah berhasil dibuat!"``.
 
 Cara mengirimkan message tersebut adalah dengan menggunakan ``messages.success(request, 'Akun telah berhasil dibuat!')`` dan menuliskan kode berikut pada HTML yang kita gunakan:
 ```HTML
@@ -59,8 +59,6 @@ Pada halaman utama ``todolist``, kita dapat mengatur ``views.py`` untuk mengambi
 <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
 ```
 
-Agar user dapat membuat task baru, kita akan menyediakan form ``create-task.html`` yang berisi tabel untuk menuliskan ``title`` dan ``description`` untuk task tersebut menggunakan tag input. Kita juga menyediakan tombol submit agar user dapat melakukan submit. 
-
-Ketika user mengakses ``todolist/create-task``, maka ``views.py`` akan menampilkan HTML tersebut dan menyimpan data yang diberikan oleh user dengan melakukan ``request.POST.get('title')`` dan ``request.POST.get('description')``. Selain dari ``title`` dan ``description`` yang diberikan user, setiap task baru juga menyimpan ``user`` dan ``date``, tetapi kedua variabel ini diatur oleh ``views.py``, bukan user. Setelah semua data telah diperoleh, barulah kita dapat melakukan ``save()``. Setelah itu, data akan tersimpan di dalam database.
+Agar user dapat membuat task baru, kita akan membuat fungsi ``create_task`` pada ``views.py`` yang akan dipanggil ketika user mengakses link ``{% url 'todolist:create-task' %}``. Fungsi tersebut akan menampilkan ``create-task.html`` dan meminta ``title`` dan ``description`` dari task yang baru dengan melakukan ``request.POST.get('title')`` dan ``request.POST.get('description')``. Selain dari ``title`` dan ``description`` yang diberikan user, setiap task baru juga menyimpan ``user`` dan ``date``, tetapi kedua variabel ini diatur di dalam fungsi, bukan oleh user. Setelah semua data telah diperoleh, barulah kita dapat melakukan ``save()``. Setelah itu, data akan tersimpan di dalam database.
 
 Lalu, kita perlu mengubah ``urls.py`` untuk dapat mengakses fungsi-fungsi ``views.py`` yang sudah kita buat sebelumnya. Setelah kita melakukan push ke GitHub, maka otomatis website baru kita akan ter-deploy, karena kita sudah pernah melakukan deploy menggunakan repo yang sama. Setelah website ter-deploy, kita dapat membuat akun dan dummy data layaknya seorang user biasa.
