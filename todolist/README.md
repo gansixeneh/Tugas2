@@ -52,7 +52,7 @@ Untuk form login, sebenarnya mirip dengan form register, tetapi kita membuat for
 
 Untuk form logout, kita hanya perlu memanggil fungsi ``logout()``, mengembalikan user ke halaman login, dan membersihkan cookie.
 
-Pada halaman utama ``todolist``, kita dapat mengatur ``views.py`` untuk mengambil username dan daftar-daftar task yang ada. Data username diperoleh dari ``request.user``, sedangkan task diperoleh dari ``Task.objects.filter(user=request.user)`` agar seorang user tidak dapat melihat task user lain. Kita juga perlu membuat link yang menuju ke link logout dan link form untuk menambah task baru, yaitu dengan menggunakan:
+Pada halaman utama ``todolist``, kita dapat mengatur ``views.py`` untuk mengambil username dan daftar-daftar task yang ada. Kita juga menuliskan ``@login_required`` agar hanya user yang sudah login yang bisa melihat halaman ini. Data username diperoleh dari ``request.user``, sedangkan task diperoleh dari ``Task.objects.filter(user=request.user)`` agar seorang user tidak dapat melihat task user lain. Kita juga perlu membuat link yang menuju ke link logout dan link form untuk menambah task baru, yaitu dengan menggunakan:
 
 ```HTML
 <button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
