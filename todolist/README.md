@@ -1,6 +1,6 @@
 # Link Heroku App
 
-http://tugas2-gansixeneh-2106629963.herokuapp.com/mywatchlist/todolist/
+http://tugas2-gansixeneh-2106629963.herokuapp.com/todolist/
 
 # Kegunaan {% csrf_token %} Pada Elemen \<form\>
 
