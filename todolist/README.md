@@ -62,3 +62,12 @@ Pada halaman utama ``todolist``, kita dapat mengatur ``views.py`` untuk mengambi
 Agar user dapat membuat task baru, kita akan membuat fungsi ``create_task`` pada ``views.py`` yang akan dipanggil ketika user mengakses link ``{% url 'todolist:create-task' %}``. Fungsi tersebut akan menampilkan ``create-task.html`` dan meminta ``title`` dan ``description`` dari task yang baru dengan melakukan ``request.POST.get('title')`` dan ``request.POST.get('description')``. Selain dari ``title`` dan ``description`` yang diberikan user, setiap task baru juga menyimpan ``user`` dan ``date``, tetapi kedua variabel ini diatur di dalam fungsi, bukan oleh user. Setelah semua data telah diperoleh, barulah kita dapat melakukan ``save()``. Setelah itu, data akan tersimpan di dalam database.
 
 Lalu, kita perlu mengubah ``urls.py`` untuk dapat mengakses fungsi-fungsi ``views.py`` yang sudah kita buat sebelumnya. Setelah kita melakukan push ke GitHub, maka otomatis website baru kita akan ter-deploy, karena kita sudah pernah melakukan deploy menggunakan repo yang sama. Setelah website ter-deploy, kita dapat membuat akun dan dummy data layaknya seorang user biasa.
+
+Berikut username dan password yang digunakan:
+```
+Username: dummy1
+Password: dumdum123
+
+Username: dummy2
+Password: dumdum123
+```
