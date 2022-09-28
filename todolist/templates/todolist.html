@@ -25,7 +25,11 @@
             <td>{{todo.date}}</td>
             <td>{{todo.title}}</td>
             <td>{{todo.description}}</td>
-            <td>{{todo.is_finished}}</td>
+            {% if todo.is_finished %}
+                <td>Selesai</td>
+            {% else %}
+                <td>Belum Selesai</td>
+            {% endif %}
             <td><button><a href="update-task/{{todo.id}}">Ubah Status</a></button></td>
             <td><button><a href="delete-task/{{todo.id}}">Hapus</a></button></td>
         </tr>
