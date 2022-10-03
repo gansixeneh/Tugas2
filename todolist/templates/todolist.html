@@ -6,32 +6,45 @@
 
 {% block content %}
 
-<button><a href="{% url 'todolist:create-task' %}">Tambah Task Baru</a></button>
-<button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">Todolist</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'todolist:create-task' %}">Tambah Task Baru</a>
+                </li>
+                <li class="nav-item mr-sm-2 my-sm-0">
+                    <a class="nav-link" href="{% url 'todolist:logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <p>Welcome, {{ name }}!</p>
 
-<table>
-    <tr>
-    <th>Tanggal Pembuatan Task</th>
-    <th>Judul Task</th>
-    <th>Deskripsi Task</th>
-    <th>Status Penyelesaian Task</th>
-    <th>Ubah Status Task</th>
-    <th>Hapus Task</th>
+<table class="table table-bordered table-striped container table-hover text-center" style="border-color:gray">
+    <tr class="row">
+        <td class="col text-white bg-black">Tanggal Pembuatan Task</td>
+        <td class="col text-white bg-black">Judul Task</td>
+        <td class="col text-white bg-black">Deskripsi Task</td>
+        <td class="col text-white bg-black">Status Penyelesaian Task</td>
+        <td class="col text-white bg-black">Ubah Status Task</td>
+        <td class="col text-white bg-black">Hapus Task</td>
     </tr>
     {% for todo in list_todolist %}
-        <tr>
-            <td>{{todo.date}}</td>
-            <td>{{todo.title}}</td>
-            <td>{{todo.description}}</td>
+        <tr class="row">
+            <td class="col text-black">{{todo.date}}</td>
+            <td class="col text-black">{{todo.title}}</td>
+            <td class="col text-black">{{todo.description}}</td>
             {% if todo.is_finished %}
-                <td>Selesai</td>
+                <td class="col text-black">Selesai</td>
             {% else %}
-                <td>Belum Selesai</td>
+                <td class="col text-black">Belum Selesai</td>
             {% endif %}
-            <td><button><a href="update-task/{{todo.id}}">Ubah Status</a></button></td>
-            <td><button><a href="delete-task/{{todo.id}}">Hapus</a></button></td>
+            <td class="col text-black"><button type="button" class="btn btn-link"><a href="update-task/{{todo.id}}">Ubah Status</a></button></td>
+            <td class="col text-black"><button type="button" class="btn btn-link"><a href="delete-task/{{todo.id}}">Hapus</a></button></td>
         </tr>
     {% endfor %}
 </table>
