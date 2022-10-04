@@ -12,20 +12,20 @@
 
     <form method="POST" action="">
         {% csrf_token %}
-        <div class="card" style="margin:auto; width: 30%;">
+        <div class="card col" style="margin:auto; width: 350px;">
             <div class="card-header text-white" style="background-color:#0f8e9a;">
                 <div class="fw-bold">Login</div>
             </div>
             <div class="card-body" style="background-color:rgb(173, 223, 239);">
                 <br>
                 <br>
-                <table style="margin:auto;">
+                <table class="container" style="margin:auto;">
                     <tr>
                         <td>Username: </td>
                         <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
                     </tr>
                             
-                    <tr>
+                    <tr">
                         <td>Password: </td>
                         <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
                     </tr>
