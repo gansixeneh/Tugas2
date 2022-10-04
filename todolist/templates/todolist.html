@@ -6,15 +6,19 @@
 
 {% block content %}
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light justify-content-end">
     <div class="container-fluid">
         <a class="navbar-brand">Todolist</a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'todolist:create-task' %}">Tambah Task Baru</a>
                 </li>
-                <li class="nav-item mr-sm-2 my-sm-0">
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav text-right">
+                <li class="nav-item">
                     <a class="nav-link" href="{% url 'todolist:logout' %}">Logout</a>
                 </li>
             </ul>
@@ -22,39 +26,39 @@
     </div>
 </nav>
 
-<p>Welcome, {{ name }}!</p>
+<div class="fs-2 text-center py-4">Welcome, {{ name }}!</div>
 
-<table class="table table-bordered table-striped container table-hover text-center" style="border-color:gray">
-    <tr class="row">
-        <td class="col text-white bg-black">Tanggal Pembuatan Task</td>
-        <td class="col text-white bg-black">Judul Task</td>
-        <td class="col text-white bg-black">Deskripsi Task</td>
-        <td class="col text-white bg-black">Status Penyelesaian Task</td>
-        <td class="col text-white bg-black">Ubah Status Task</td>
-        <td class="col text-white bg-black">Hapus Task</td>
-    </tr>
-    {% for todo in list_todolist %}
-        <tr class="row">
-            <td class="col text-black">{{todo.date}}</td>
-            <td class="col text-black">{{todo.title}}</td>
-            <td class="col text-black">{{todo.description}}</td>
-            {% if todo.is_finished %}
-                <td class="col text-black">Selesai</td>
-            {% else %}
-                <td class="col text-black">Belum Selesai</td>
-            {% endif %}
-            <td class="col text-black"><button type="button" class="btn btn-link"><a href="update-task/{{todo.id}}">Ubah Status</a></button></td>
-            <td class="col text-black"><button type="button" class="btn btn-link"><a href="delete-task/{{todo.id}}">Hapus</a></button></td>
-        </tr>
-    {% endfor %}
-</table>
+{% for todo in list_todolist %}
+<div class="card" style="margin:auto; width: 70%;">
+    <div class="card-header text-white" style="background-color:#0f8e9a;">
+        <div class="fw-bold">{{todo.title}}</div>
+        <div style="text-align:right">{{todo.date}}</div>
+    </div>
+
+    <div class="card-body" style="background-color:rgb(173, 223, 239);">
+        <p class="card-text">{{todo.description}}</p>
+        <br>
+        {% if todo.is_finished %}
+            <p class="card-text fw-bold">Selesai</p>
+        {% else %}
+            <p class="card-text fw-bold">Belum Selesai</p>
+        {% endif %}
+        <a href="update-task/{{todo.id}}" class="btn btn-success">Ubah Status</a>
+        <a href="delete-task/{{todo.id}}" class="btn btn-danger">Hapus</a>
+    </div>
+</div>
+<br>
+{% endfor %}
 
 {% if messages %}
-    <ul>
         {% for message in messages %}
-            <li>{{ message }}</li>
+            <br>
+            <div class="toast show" role="alert" style="margin: auto;">
+                <div class="toast-body text-center bg-success text-white">
+                    {{message}}
+                </div>
+            </div>
         {% endfor %}
-    </ul>
 {% endif %}
 
 {% endblock content %}

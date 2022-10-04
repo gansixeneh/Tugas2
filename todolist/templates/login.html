@@ -6,39 +6,54 @@
 
 {% block content %}
 
-<div class = "login">
-
-    <h1>Login</h1>
+<div class="login">
+    <br><br><br><br>
+    <p class="fs-2 text-center py-4">Selamat datang kembali!</p>
 
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
+        <div class="card" style="margin:auto; width: 30%;">
+            <div class="card-header text-white" style="background-color:#0f8e9a;">
+                <div class="fw-bold">Login</div>
+            </div>
+            <div class="card-body" style="background-color:rgb(173, 223, 239);">
+                <br>
+                <br>
+                <table style="margin:auto;">
+                    <tr>
+                        <td>Username: </td>
+                        <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+                    </tr>
+                            
+                    <tr>
+                        <td>Password: </td>
+                        <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+                    </tr>
                     
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
+                    <tr>
+                        <td></td>
+                        <td><br><input class="btn btn-success" type="submit" value="Login"></td>
+                    </tr>
+                </table>
+                <br><br>
+            </div>
+        </div>
     </form>
 
     {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
+        {% for message in messages %}
+            <br><br>
+            <div class="toast show" role="alert" style="margin: auto;">
+                <div class="toast-body text-center bg-danger text-white">
+                    {{message}}
+                </div>
+            </div>
+        {% endfor %}
     {% endif %}     
         
-    Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a>
+    <p class="fs-6 text-center py-4">
+        Belum mempunyai akun? <a href="{% url 'todolist:register' %}">Buat Akun</a>
+    </p>
 
 </div>
 
