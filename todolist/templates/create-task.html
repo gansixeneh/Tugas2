@@ -2,32 +2,47 @@
 
 {% block meta %}
 <title>Tambah Task Baru</title>
+<style>
+    .center {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}
 
-<div class = "create-task">
-
-    <h1>Tambah Task Baru</h1>
-
+<div class="create-task">
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Judul: </td>
-                <td><input type="text" name="title" placeholder="Title" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Deskripsi: </td>
-                <td><input type="text" name="description" placeholder="Description" class="form-control"></td>
-            </tr>
-
-            <tr>
-                <td></td>
-                <td><input class="btn submit_btn" type="submit" value="Submit"></td>
-            </tr>
-        </table>
+        <div class="card justify-content-center center" style="margin:auto; width: 350px;">
+            <div class="card-header text-white" style="background-color:#0f8e9a;">
+                <div class="fw-bold">Tambah Task Baru</div>
+            </div>
+            <div class="card-body" style="background-color:rgb(173, 223, 239);">
+                <br>
+                <br>
+                <table class="container" style="margin:auto;">
+                    <tr>
+                        <td>Judul: </td>
+                        <td><input type="text" name="title" placeholder="Title" class="form-control"></td>
+                    </tr>
+                            
+                    <tr>
+                        <td>Deskripsi: </td>
+                        <td><input type="text" name="description" placeholder="Description" class="form-control"></td>
+                    </tr>
+        
+                    <tr>
+                        <td></td>
+                        <td><input class="btn btn-success mt-2" type="submit" value="Submit"></td>
+                    </tr>
+                </table>
+                <br><br>
+            </div>
+        </div>
     </form>
 </div>
 
