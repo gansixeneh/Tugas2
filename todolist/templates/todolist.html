@@ -2,6 +2,14 @@
 
 {% block meta %}
 <title>Daftar Task</title>
+<style>
+    .card{
+        background-color: rgb(173, 223, 239);
+    }
+    .card:hover{
+        background-color: rgb(157, 219, 240);
+    }
+</style>
 {% endblock meta %}
 
 {% block content %}
@@ -26,13 +34,13 @@
 <div class="fs-2 text-center py-4">Welcome, {{ name }}!</div>
 
 {% for todo in list_todolist %}
-<div class="card" style="margin: auto; width: 70%;">
-    <div class="card-header text-white" style="background-color:#0f8e9a;">
+<div class="card shadow-lg" style="margin: auto; width: 70%;">
+    <div class="card-header text-white" style="background-color: #0f8e9a;">
         <div class="fw-bold">{{todo.title}}</div>
         <div style="text-align:right">{{todo.date}}</div>
     </div>
 
-    <div class="card-body" style="background-color:rgb(173, 223, 239);">
+    <div class="card-body">
         <p class="card-text">{{todo.description}}</p>
         <br>
         {% if todo.is_finished %}
