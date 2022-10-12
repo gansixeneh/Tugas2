@@ -18,7 +18,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addTodolistModalLabel">Tambah Task Baru</h5>
+        <h5 class="modal-title" id="addTodolistModalLabel">Add Task</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form id="form" onsubmit="return false;">
@@ -26,11 +26,11 @@
         {% csrf_token %}
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Judul:</label>
-            <input type="text" name="title" placeholder="Title" class="form-control">
+            <input id="title" type="text" name="title" placeholder="Title" class="form-control">
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Deskripsi:</label>
-            <input type="text" name="description" placeholder="Description" class="form-control">
+            <input id="description" type="text" name="description" placeholder="Description" class="form-control">
           </div>
       </div>
       <div class="modal-footer">
@@ -51,7 +51,7 @@
         <ul class="navbar-nav">
             <li class="nav-item">
                 <button type="button" class="nav-link active btn btn-success text-white m-2 p-1" data-bs-toggle="modal" data-bs-target="#addTodolistModal">
-                  Tambah Task Baru
+                  Add Task
                 </button>
             </li>
             <li class="nav-item">
@@ -79,36 +79,15 @@
 
 <br>
 
-{% for todo in list_todolist %}
-<div class="card shadow-lg" style="margin: auto; width: 70%;">
-    <div class="card-header text-white" style="background-color: #0f8e9a;">
-        <div class="fw-bold">{{todo.title}}</div>
-        <div style="text-align:right">{{todo.date}}</div>
-    </div>
-
-    <div class="card-body">
-        <p class="card-text">{{todo.description}}</p>
-        <br>
-        {% if todo.is_finished %}
-            <p class="card-text fw-bold">Selesai</p>
-        {% else %}
-            <p class="card-text fw-bold">Belum Selesai</p>
-        {% endif %}
-        <br>
-        <a href="update-task/{{todo.id}}" class="btn btn-success m-2">Ubah Status</a>
-        <a href="delete-task/{{todo.id}}" class="btn btn-danger m-2">Hapus</a>
-    </div>
-    
-</div>
-<br>
-{% endfor %}
-
 <script>
     async function getTodolist() {
       return fetch('/todolist/json/').then((res) => res.json())
     }
   
     async function refreshTodolist() {
+          document.getElementById("title").value = ""
+          document.getElementById("description").value = ""
+
           document.getElementById("daftar_todolist").innerHTML = ""
           const todolist = await getTodolist()
           let htmlString = ``
@@ -129,9 +108,11 @@
               htmlString += `\n<p class="card-text fw-bold">Belum Selesai</p>`
             }
             htmlString += `\n<br>
-                <a href="update-task/${item.fields.pk}" class="btn btn-success m-2">Ubah Status</a>
-                <a href="delete-task/${item.fields.pk}" class="btn btn-danger m-2">Hapus</a>
-            </div>`
+                <a href="update-task/${item.pk}" class="btn btn-success m-2">Ubah Status</a>
+                <a href="delete-task/${item.pk}" class="btn btn-danger m-2">Hapus</a>
+            </div>
+            </div>
+            <br>`
           })
           
           document.getElementById("daftar_todolist").innerHTML = htmlString
@@ -139,6 +120,14 @@
   
     function addTodolist() {
       fetch('/todolist/add/', {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshTodolist)
+      return false
+    }
+
+    function deleteTodolist(id) {
+      fetch(`/todolist/delete/${id}`, {
             method: "POST",
             body: new FormData(document.querySelector('#form'))
         }).then(refreshTodolist)
