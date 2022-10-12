@@ -127,9 +127,7 @@
     }
 
     function deleteTodolist(id) {
-      fetch(`/todolist/delete/${id}`, {
-            method: "GET"
-        }).then(refreshTodolist)
+      fetch(`/todolist/delete/${id}`).then(refreshTodolist)
       return false
     }
   
