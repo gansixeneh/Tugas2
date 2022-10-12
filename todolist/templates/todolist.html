@@ -13,6 +13,35 @@
 {% endblock meta %}
 
 {% block content %}
+
+<div class="modal fade" id="addTodolistModal" tabindex="-1" aria-labelledby="addTodolistModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTodolistModalLabel">Tambah Task Baru</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="form" onsubmit="return false;">
+      <div class="modal-body">
+        {% csrf_token %}
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Judul:</label>
+            <input type="text" name="title" placeholder="Title" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Deskripsi:</label>
+            <input type="text" name="description" placeholder="Description" class="form-control">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="submit" type="submit" type="button" value="Submit" class="btn btn-success" data-bs-dismiss="modal">Submit</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
 <nav class="navbar navbar-expand-sm navbar-light">
 
     <div class="container">
@@ -21,7 +50,9 @@
 
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active btn btn-success text-white m-2 p-1" href="{% url 'todolist:create-task' %}">Tambah Task Baru</a>
+                <button type="button" class="nav-link active btn btn-success text-white m-2 p-1" data-bs-toggle="modal" data-bs-target="#addTodolistModal">
+                  Tambah Task Baru
+                </button>
             </li>
             <li class="nav-item">
                 <a class="nav-link btn btn-danger text-white m-2 p-1" href="{% url 'todolist:logout' %}">Logout</a>
@@ -32,6 +63,21 @@
 </nav>
 
 <div class="fs-2 text-center py-4">Welcome, {{ name }}!</div>
+
+<div id="daftar_todolist"></div>
+
+{% if messages %}
+        {% for message in messages %}
+            <br>
+            <div class="toast show" role="alert" style="margin: auto;">
+                <div class="toast-body text-center bg-success text-white">
+                    {{message}}
+                </div>
+            </div>
+        {% endfor %}
+{% endif %}
+
+<br>
 
 {% for todo in list_todolist %}
 <div class="card shadow-lg" style="margin: auto; width: 70%;">
@@ -57,17 +103,50 @@
 <br>
 {% endfor %}
 
-{% if messages %}
-        {% for message in messages %}
-            <br>
-            <div class="toast show" role="alert" style="margin: auto;">
-                <div class="toast-body text-center bg-success text-white">
-                    {{message}}
-                </div>
+<script>
+    async function getTodolist() {
+      return fetch('/todolist/json/').then((res) => res.json())
+    }
+  
+    async function refreshTodolist() {
+          document.getElementById("daftar_todolist").innerHTML = ""
+          const todolist = await getTodolist()
+          let htmlString = ``
+          todolist.forEach((item) => {
+            htmlString += `\n<div class="card shadow-lg" style="margin: auto; width: 70%;">
+            <div class="card-header text-white" style="background-color: #0f8e9a;">
+                <div class="fw-bold">${item.fields.title}</div>
+                <div style="text-align:right">${item.fields.date}</div>
             </div>
-        {% endfor %}
-{% endif %}
 
-<br>
+            <div class="card-body">
+                <p class="card-text">${item.fields.description}</p>
+                <br>`
+            if(item.fields.is_finished == true) {
+              htmlString += `\n<p class="card-text fw-bold">Selesai</p>`
+            }
+            else {
+              htmlString += `\n<p class="card-text fw-bold">Belum Selesai</p>`
+            }
+            htmlString += `\n<br>
+                <a href="update-task/${item.fields.pk}" class="btn btn-success m-2">Ubah Status</a>
+                <a href="delete-task/${item.fields.pk}" class="btn btn-danger m-2">Hapus</a>
+            </div>`
+          })
+          
+          document.getElementById("daftar_todolist").innerHTML = htmlString
+    }
+  
+    function addTodolist() {
+      fetch('/todolist/add/', {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshTodolist)
+      return false
+    }
+  
+    document.getElementById("submit").onclick = addTodolist
+    refreshTodolist()
+</script>
 
 {% endblock content %}

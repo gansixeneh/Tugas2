@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from django.urls import reverse
 from todolist.models import Task
+from django.core import serializers
+from django.http import HttpResponse, HttpResponseNotFound
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
@@ -88,3 +90,21 @@ def delete_task(request, id):
 
     messages.success(request, 'Task telah berhasil dihapus!')
     return redirect('todolist:show_todolist')
+
+def get_todolist_json(request):
+    todolist_item = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', todolist_item))
+
+def add_todolist_item(request):
+    if request.method == 'POST':
+        task_baru = Task()
+        task_baru.user = request.user
+        task_baru.date = str(datetime.date.today())
+        task_baru.title = request.POST.get('title')
+        task_baru.description = request.POST.get('description')
+
+        task_baru.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
