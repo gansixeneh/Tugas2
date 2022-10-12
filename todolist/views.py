@@ -108,3 +108,11 @@ def add_todolist_item(request):
         return HttpResponse(b"CREATED", status=201)
 
     return HttpResponseNotFound()
+
+def delete_todolist_item(request, id):
+    task = Task.objects.get(id=id)
+    if task.user == request.user:
+        task.delete()
+        return HttpResponse(b"DELETED", status=201)
+
+    return HttpResponseNotFound()

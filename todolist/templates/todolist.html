@@ -109,7 +109,7 @@
             }
             htmlString += `\n<br>
                 <a href="update-task/${item.pk}" class="btn btn-success m-2">Ubah Status</a>
-                <a href="delete-task/${item.pk}" class="btn btn-danger m-2">Hapus</a>
+                <button class="btn btn-danger m-2" onclick="deleteTodolist(${item.pk})">Hapus</button>
             </div>
             </div>
             <br>`
@@ -128,8 +128,7 @@
 
     function deleteTodolist(id) {
       fetch(`/todolist/delete/${id}`, {
-            method: "POST",
-            body: new FormData(document.querySelector('#form'))
+            method: "GET"
         }).then(refreshTodolist)
       return false
     }
